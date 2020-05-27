@@ -11,8 +11,14 @@ interface ContactDao  {
     @Query("SELECT * FROM Person ORDER BY first_name ASC")
     fun getContactList() : LiveData<List<Person>>
 
+    @Query("SELECT * FROM Person ORDER BY first_name ASC")
+    fun viewAllContacts(): List<Person>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertNewContact(newPerson: Person)
+
+    @Update
+    suspend fun updateContact(person: Person)
 
     @Delete
     suspend fun removeContact(person: Person)

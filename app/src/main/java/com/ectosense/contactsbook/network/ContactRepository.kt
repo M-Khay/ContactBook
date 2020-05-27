@@ -8,6 +8,7 @@ interface ContactRepository {
     suspend fun syncContacts(): ArrayList<Person>
     fun getSavedContactList(): LiveData<List<Person>>
 
+    suspend fun updateContact(person: Person)
     suspend fun addNewContact(person: Person): Person?
     suspend fun deleteContact(person: Person)
 }

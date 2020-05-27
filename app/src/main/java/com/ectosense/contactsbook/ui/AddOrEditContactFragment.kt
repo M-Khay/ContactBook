@@ -11,11 +11,6 @@ import com.ectosense.contactsbook.R
 
 class AddOrEditContactFragment : Fragment() {
 
-    companion object {
-        fun newInstance() =
-            AddOrEditContactFragment()
-    }
-
     private lateinit var viewModel: ContactViewModel
 
     override fun onCreateView(
@@ -27,7 +22,6 @@ class AddOrEditContactFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(ContactViewModel::class.java)
         // TODO: Use the ViewModel
     }
 

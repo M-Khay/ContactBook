@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ectosense.contactsbook.R
@@ -17,7 +18,6 @@ import com.ectosense.contactsbook.network.Loading
 import com.ectosense.contactsbook.network.Success
 import com.ectosense.contactsbook.ui.rv.ContactListAdapter
 import kotlinx.android.synthetic.main.fragment_contact_list.*
-import org.koin.android.viewmodel.ext.android.viewModel
 
 class ContactListFragment : Fragment() {
 
@@ -26,7 +26,7 @@ class ContactListFragment : Fragment() {
     }
 
     private lateinit var changeFragmentListener: ChangeFragmentListener
-    private val contactViewModel by viewModel<ContactViewModel>()
+    private lateinit var contactViewModel: ContactViewModel
     private lateinit var adapter: ContactListAdapter
 
     override fun onAttach(context: Context) {
@@ -49,11 +49,12 @@ class ContactListFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        contactViewModel = ViewModelProvider(requireActivity()).get(ContactViewModel::class.java)
 
         add_new_contact.setOnClickListener {
             changeFragmentListener.changeFragment()
         }
-        adapter = ContactListAdapter()
+        adapter = ContactListAdapter(contactViewModel)
 
         contact_list.apply {
             layoutManager = LinearLayoutManager(activity)
@@ -69,6 +70,7 @@ class ContactListFragment : Fragment() {
         contactViewModel.syncContactList()
         contactViewModel._ContactsSyncState.observe(this.viewLifecycleOwner, apiResultObserver)
         contactViewModel.contactList.observe(this.viewLifecycleOwner, dbContactListObeserver)
+        contactViewModel.selectedContact.observe(this.viewLifecycleOwner, selectedContactObserver)
 
     }
 
@@ -89,6 +91,16 @@ class ContactListFragment : Fragment() {
     private val dbContactListObeserver = Observer<List<Person>> { pupilList ->
         // update adapter.
         adapter.updateContactsList(pupilList)
+    }
+
+    private val selectedContactObserver = Observer<Person> {
+        it?.let {
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.container, ContactDetailsFragment())
+                .addToBackStack(null)
+                .commit()
+        }
+
     }
 
 }

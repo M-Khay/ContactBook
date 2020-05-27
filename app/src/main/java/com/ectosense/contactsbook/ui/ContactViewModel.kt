@@ -21,6 +21,8 @@ class ContactViewModel(private val repository: ContactRepository) : ViewModel() 
 
     val _ContactsSyncState = MutableLiveData<ApiResult<List<Person>>>()
 
+    val selectedContact =  MutableLiveData<Person>()
+
     val contactList: LiveData<List<Person>>
         get() = repository.getSavedContactList()
 
@@ -56,6 +58,22 @@ class ContactViewModel(private val repository: ContactRepository) : ViewModel() 
                 withContext(Dispatchers.Main) {
                     Log.d(TAG, "Error from API ${exception.localizedMessage}")
                     addNewContactState.value = false
+                }
+            }
+        }
+    }
+
+    fun selectContact(person : Person ){
+        selectedContact.value = person
+    }
+
+    fun updateContact(person : Person ){
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                repository.updateContact(person)
+            } catch (exception: Exception) {
+                withContext(Dispatchers.Main) {
+                    Log.d(TAG, "Error while updating Contact ${exception.localizedMessage}")
                 }
             }
         }
