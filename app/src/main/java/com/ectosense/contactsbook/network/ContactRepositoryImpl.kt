@@ -22,6 +22,11 @@ class ContactRepositoryImpl(val database: AppDatabase, val contactApi: ContactAp
         TODO("Not yet implemented")
     }
 
+    override suspend fun updateContact(person: Person) {
+        database.contactDao.updateContact(person)
+        val checkingDataBaseUpdate = database.contactDao.viewAllContacts()
+    }
+
     override suspend fun deleteContact(person: Person) {
         TODO("Not yet implemented")
     }

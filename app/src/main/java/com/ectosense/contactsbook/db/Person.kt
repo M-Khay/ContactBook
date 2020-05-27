@@ -28,7 +28,7 @@ data class Person(
     val phone: String,
 
     @ColumnInfo(name = "favorite")
-    val favorite: Boolean,
+    var favorite: Boolean,
 
     @ColumnInfo(name = "photo")
     val photo: String?
