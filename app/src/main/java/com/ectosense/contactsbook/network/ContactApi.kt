@@ -10,7 +10,7 @@ import retrofit2.http.POST
 interface ContactApi {
 
     @GET("contacts")
-    suspend fun getContacts(): PersonList
+    suspend fun syncContacts(): ArrayList<Person>
 
     // To be modified.
     @POST("contacts")

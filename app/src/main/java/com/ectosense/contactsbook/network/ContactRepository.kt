@@ -5,7 +5,7 @@ import com.ectosense.contactsbook.db.Person
 import com.ectosense.contactsbook.db.PersonList
 
 interface ContactRepository {
-    suspend fun syncContacts(page: Int): PersonList
+    suspend fun syncContacts(): ArrayList<Person>
     fun getSavedContactList(): LiveData<List<Person>>
 
     suspend fun addNewContact(person: Person): Person?

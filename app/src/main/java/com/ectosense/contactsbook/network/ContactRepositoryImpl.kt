@@ -8,12 +8,14 @@ import com.ectosense.contactsbook.db.PersonList
 
 class ContactRepositoryImpl(val database: AppDatabase, val contactApi: ContactApi) :
     ContactRepository {
-    override suspend fun syncContacts(page: Int): PersonList {
-        TODO("Not yet implemented")
+    override suspend fun syncContacts(): ArrayList<Person>{
+        val apiResponse = contactApi.syncContacts()
+        database.contactDao.insertContactList(apiResponse)
+        return apiResponse
     }
 
     override fun getSavedContactList(): LiveData<List<Person>> {
-        TODO("Not yet implemented")
+        return database.contactDao.getContactList()
     }
 
     override suspend fun addNewContact(person: Person): Person? {

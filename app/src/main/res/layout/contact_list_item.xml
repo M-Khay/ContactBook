@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="personDetails"
             type="com.ectosense.contactsbook.db.Person" />
@@ -12,9 +13,9 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cvEmployee"
+        style="@style/ListCardStyle"
         android:layout_gravity="center_vertical|top"
         android:elevation="5dp"
-        style="@style/ListCardStyle"
         card_view:cardCornerRadius="1dp">
 
 
@@ -22,11 +23,11 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-<!--                bind:image="@{personDetails.}"-->
             <ImageView
                 android:id="@+id/poster"
                 style="@style/ListImageView"
                 android:layout_alignParentEnd="true"
+                bind:image="@{personDetails.photo?? ``}"
                 bind:layout_constraintBottom_toBottomOf="parent"
                 bind:layout_constraintStart_toStartOf="parent"
                 bind:layout_constraintTop_toTopOf="parent" />
@@ -35,22 +36,24 @@
             <TextView
                 android:id="@+id/name"
                 style="@style/TextViewStyle.Content.List"
+                android:ellipsize="end"
                 android:gravity="bottom|start"
                 android:singleLine="true"
+                android:text="@{personDetails.firstName+ ` ` + personDetails.lastName}"
                 bind:layout_constraintStart_toEndOf="@id/poster"
-                bind:layout_constraintTop_toTopOf="parent"
-                android:text="@{`Title: `+ personDetails.firstName}"
-                android:ellipsize="end"
-                tools:text="Alec and Bob" />
+                bind:layout_constraintBottom_toBottomOf="parent"
+                bind:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/phone"
-                style="@style/TextViewStyle.Subcontent.List"
-                android:singleLine="true"
-                bind:layout_constraintStart_toEndOf="@id/poster"
-                android:text="@{`Year: `+ personDetails.phone}"
-                bind:layout_constraintTop_toBottomOf="@id/name"
-                tools:text="1990" />
+
+            <ToggleButton
+                android:id="@+id/favourite_Button"
+                style="@style/ToggleButton"
+                android:layout_alignParentEnd="true"
+                android:background="@drawable/favourite_toggle_bg"
+                android:checked="@{personDetails.favorite}"
+                bind:layout_constraintBottom_toBottomOf="parent"
+                bind:layout_constraintEnd_toEndOf="parent"
+                bind:layout_constraintTop_toTopOf="parent" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

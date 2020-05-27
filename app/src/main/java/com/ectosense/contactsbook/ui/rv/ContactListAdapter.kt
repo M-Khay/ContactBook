@@ -20,10 +20,9 @@ class ContactListAdapter() : RecyclerView.Adapter<ContactListViewHolder>(), Sect
 
     override fun onBindViewHolder(holder: ContactListViewHolder, position: Int) {
         holder.setData(personList[position])
-
         // To Implement ClickListener
         holder.itemView.setOnClickListener {
-//            pupilListViewModel.setSelectedMovie(movieList[position])
+        // pupilListViewModel.setSelectedMovie(movieList[position])
         }
 
 
@@ -33,8 +32,9 @@ class ContactListAdapter() : RecyclerView.Adapter<ContactListViewHolder>(), Sect
         return personList.size
     }
 
-    fun updateTeamList(personList: List<Person>) {
-//        if(this.personList.size>personList.size) {
+    fun updateContactsList(personList: List<Person>) {
+//        if(this.personList.size>personList.size) {l
+
         this.personList = personList.toMutableList()
         notifyDataSetChanged()
 //        }else{

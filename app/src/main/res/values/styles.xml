@@ -13,6 +13,16 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+    <style name="ToggleButton" parent="Widget.MaterialComponents.Button">
+        <item name="android:buttonStyleToggle">@style/TextAppearance.AppCompat.Widget.Switch</item>
+        <item name="android:textOn" />
+        <item name="android:textOff" />
+        <item name="android:layout_width">32dp</item>
+        <item name="android:layout_height">32dp</item>
+        <item name="android:layout_marginLeft">16dp</item>
+        <item name="android:layout_marginRight">48dp</item>
+    </style>
+
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
@@ -27,7 +37,7 @@
     <style name="TextViewStyle.Content" parent="TextAppearance.MaterialComponents.Body1">
         <item name="android:layout_marginLeft">16dp</item>
         <item name="android:layout_marginRight">16dp</item>
-        <item name="android:maxWidth">160dp</item>
+        <item name="android:maxWidth">184dp</item>
     </style>
 
     <style name="TextViewStyle.Subcontent" parent="TextAppearance.MaterialComponents.Caption">
@@ -40,10 +50,10 @@
     <style name="TextViewStyle.Content.List">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">32dp</item>
-        <item name="android:layout_marginTop">8dp</item>
         <item name="android:textAlignment">viewStart</item>
-        <item name="android:maxWidth">260dp</item>
+        <item name="android:maxWidth">252dp</item>
         <item name="singleLine">true</item>
+        <item name="android:textSize">20dp</item>
         <item name="android:gravity">bottom|start</item>
     </style>
 
@@ -65,8 +75,8 @@
     </style>
 
     <style name="ListImageView">
-        <item name="android:layout_width">64dp</item>
-        <item name="android:layout_height">64dp</item>
+        <item name="android:layout_width">56dp</item>
+        <item name="android:layout_height">56dp</item>
         <item name="android:layout_marginLeft">16dp</item>
         <item name="android:layout_marginRight">16dp</item>
         <item name="android:layout_marginTop">8dp</item>
