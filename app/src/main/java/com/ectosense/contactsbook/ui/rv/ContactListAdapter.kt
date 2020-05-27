@@ -6,11 +6,8 @@ import android.widget.SectionIndexer
 import androidx.recyclerview.widget.RecyclerView
 import com.ectosense.contactsbook.databinding.ContactListItemBinding
 import com.ectosense.contactsbook.db.Person
-import com.ectosense.contactsbook.ui.ContactViewModel
-import kotlinx.android.synthetic.main.contact_list_item.view.*
 
-class ContactListAdapter(var contactViewModel: ContactViewModel) :
-    RecyclerView.Adapter<ContactListViewHolder>(), SectionIndexer {
+class ContactListAdapter() : RecyclerView.Adapter<ContactListViewHolder>(), SectionIndexer {
     private var personList = mutableListOf<Person>()
 
     private lateinit var mSectionPositions: ArrayList<Int>
@@ -25,13 +22,9 @@ class ContactListAdapter(var contactViewModel: ContactViewModel) :
         holder.setData(personList[position])
         // To Implement ClickListener
         holder.itemView.setOnClickListener {
-            contactViewModel.selectContact(personList[position])
+        // pupilListViewModel.setSelectedMovie(movieList[position])
         }
-        holder.itemView.favourite_Button.setOnClickListener {
-            val updatedPerson = personList[position]
-            updatedPerson.favorite = !updatedPerson.favorite
-            contactViewModel.updateContact(personList[position])
-        }
+
 
     }
 

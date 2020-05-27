@@ -1,18 +1,13 @@
 package com.ectosense.contactsbook.ui
 
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
-import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
 import com.ectosense.contactsbook.R
-import com.ectosense.contactsbook.db.Person
-import org.koin.android.viewmodel.ext.android.viewModel
 
 
-class MainActivity : AppCompatActivity(), ContactListFragment.ChangeFragmentListener {
-
-    private val contactViewModel by viewModel<ContactViewModel>()
+class MainActivity : AppCompatActivity(),ContactListFragment.ChangeFragmentListener {
 
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,8 +18,6 @@ class MainActivity : AppCompatActivity(), ContactListFragment.ChangeFragmentList
                 .add(R.id.container, ContactListFragment())
                 .commit()
         }
-
-        contactViewModel.selectedContact.observe(this, selectedContactObserver)
 
     }
 
@@ -45,18 +38,6 @@ class MainActivity : AppCompatActivity(), ContactListFragment.ChangeFragmentList
     }
 
     override fun changeFragment() {
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.container, AddOrEditContactFragment())
-            .addToBackStack(null)
-            .commit()
-    }
-
-    private val selectedContactObserver = Observer<Person> {
-        it?.let {
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.container, ContactDetailsFragment())
-                .addToBackStack(null)
-                .commit()
-        }
+        TODO("Not yet implemented")
     }
 }

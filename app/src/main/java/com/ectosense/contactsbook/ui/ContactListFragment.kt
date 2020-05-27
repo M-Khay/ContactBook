@@ -53,7 +53,7 @@ class ContactListFragment : Fragment() {
         add_new_contact.setOnClickListener {
             changeFragmentListener.changeFragment()
         }
-        adapter = ContactListAdapter(contactViewModel)
+        adapter = ContactListAdapter()
 
         contact_list.apply {
             layoutManager = LinearLayoutManager(activity)

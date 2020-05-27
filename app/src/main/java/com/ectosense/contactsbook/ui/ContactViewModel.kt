@@ -24,7 +24,6 @@ class ContactViewModel(private val repository: ContactRepository) : ViewModel() 
     val contactList: LiveData<List<Person>>
         get() = repository.getSavedContactList()
 
-     val selectedContact =  MutableLiveData<Person>()
 
     fun syncContactList() {
         _ContactsSyncState.value =
@@ -63,19 +62,4 @@ class ContactViewModel(private val repository: ContactRepository) : ViewModel() 
     }
 
 
-    fun selectContact(person : Person ){
-        selectedContact.value = person
-    }
-
-    fun updateContact(person : Person ){
-        viewModelScope.launch(Dispatchers.IO) {
-            try {
-                repository.updateContact(person)
-            } catch (exception: Exception) {
-                withContext(Dispatchers.Main) {
-                    Log.d(TAG, "Error while updating Contact ${exception.localizedMessage}")
-                }
-            }
-        }
-    }
 }
