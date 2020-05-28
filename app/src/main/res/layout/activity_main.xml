@@ -11,20 +11,11 @@ tools:context=".ui.MainActivity">
     android:minHeight="?attr/actionBarSize"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:titleTextColor="@android:color/white"
-    android:background="?attr/colorPrimary"
+    app:title="@string/app_name_heading"
+    app:navigationIcon="@drawable/ic_toolbar_app_icon"
     app:layout_constraintTop_toTopOf="parent">
 
-    <TextView
-        android:id="@+id/txtTitleHeading"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        style="@style/TextViewStyle.Heading"
-        android:text="@string/app_name_heading"
-        android:textColor="@color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+
 </androidx.appcompat.widget.Toolbar>
 
 <FrameLayout

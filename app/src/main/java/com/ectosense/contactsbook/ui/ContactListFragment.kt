@@ -70,7 +70,6 @@ class ContactListFragment : Fragment() {
         contactViewModel.syncContactList()
         contactViewModel._ContactsSyncState.observe(this.viewLifecycleOwner, apiResultObserver)
         contactViewModel.contactList.observe(this.viewLifecycleOwner, dbContactListObeserver)
-        contactViewModel.selectedContact.observe(this.viewLifecycleOwner, selectedContactObserver)
 
     }
 
@@ -93,14 +92,5 @@ class ContactListFragment : Fragment() {
         adapter.updateContactsList(pupilList)
     }
 
-    private val selectedContactObserver = Observer<Person> {
-        it?.let {
-            parentFragmentManager.beginTransaction()
-                .replace(R.id.container, ContactDetailsFragment())
-                .addToBackStack(null)
-                .commit()
-        }
-
-    }
 
 }

@@ -30,6 +30,5 @@ class ContactRepositoryImpl(val database: AppDatabase, val contactApi: ContactAp
 
     override suspend fun updateContact(person: Person) {
         database.contactDao.updateContact(person)
-        val checkingDataBaseUpdate = database.contactDao.viewAllContacts()
     }
 }
