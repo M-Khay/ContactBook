@@ -11,7 +11,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
 
-class MainActivity : AppCompatActivity(), ContactListFragment.ChangeFragmentListener {
+class MainActivity : AppCompatActivity(), ContactListFragment.ChangeFragmentListener,ActionBarCallBack {
 
     private val contactViewModel by viewModel<ContactViewModel>()
 
@@ -44,5 +44,14 @@ class MainActivity : AppCompatActivity(), ContactListFragment.ChangeFragmentList
                 .commit()
         }
 
+    }
+
+    override fun showActionBarWithIcon(title: String?, showBackButton: Boolean) {
+        toolbar.title = title
+        if(showBackButton) {
+            toolbar.setNavigationIcon(R.drawable.ic_arrow_back_24px)
+        }else{
+            toolbar.setNavigationIcon(R.drawable.ic_toolbar_app_icon)
+        }
     }
 }

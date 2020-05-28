@@ -25,14 +25,17 @@ class ContactListFragment : Fragment() {
         fun changeFragment()
     }
 
+    private lateinit var actionBarListener: ActionBarCallBack
+
     private lateinit var changeFragmentListener: ChangeFragmentListener
     private lateinit var contactViewModel: ContactViewModel
     private lateinit var adapter: ContactListAdapter
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        if (context is ChangeFragmentListener) {
+        if (context is ChangeFragmentListener && context is ActionBarCallBack) {
             changeFragmentListener = context
+            actionBarListener = context
         } else {
             throw ClassCastException("The containing activity need to Implement ChangeFragmentListener")
         }
@@ -46,7 +49,11 @@ class ContactListFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_contact_list, container, false)
     }
 
+    override fun onResume() {
+        super.onResume()
+        actionBarListener.showActionBarWithIcon("Contact's", false)
 
+    }
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         contactViewModel = ViewModelProvider(requireActivity()).get(ContactViewModel::class.java)
