@@ -9,7 +9,7 @@ import com.ectosense.contactsbook.db.Person
 import com.ectosense.contactsbook.ui.ContactViewModel
 import kotlinx.android.synthetic.main.contact_list_item.view.*
 
-class ContactListAdapter(var contactViewModel: ContactViewModel) :
+class ContactListAdapter(var contactViewModel: ContactViewModel, private var recyclerViewClickListener: RecyclerViewClickListener) :
     RecyclerView.Adapter<ContactListViewHolder>(), SectionIndexer {
     private var personList = mutableListOf<Person>()
 
@@ -26,11 +26,14 @@ class ContactListAdapter(var contactViewModel: ContactViewModel) :
         // To Implement ClickListener
         holder.itemView.setOnClickListener {
             contactViewModel.selectContact(personList[position])
+            recyclerViewClickListener.onRowClicked(position)
         }
         holder.itemView.favourite_Button.setOnClickListener {
             val updatedPerson = personList[position]
             updatedPerson.favorite = !updatedPerson.favorite
             contactViewModel.updateContact(personList[position])
+
+//            recyclerViewClickListener.onFavoriteClicked(position,!updatedPerson.favorite)
         }
 
 
@@ -41,13 +44,13 @@ class ContactListAdapter(var contactViewModel: ContactViewModel) :
     }
 
     fun updateContactsList(personList: List<Person>) {
-//        if(this.personList.size>personList.size) {l
-
-        this.personList = personList.toMutableList()
-        notifyDataSetChanged()
-//        }else{
-//            this.personList.addAll(this.personList.size, pupilList.subList(this.personList.size, pupilList.size).toMutableList())
-//            notifyItemRangeInserted(this.personList.size , pupilList.size)
+        if (this.personList.size < personList.size) {
+            this.personList = personList.toMutableList()
+            notifyDataSetChanged()
+        }
+//        else if (personList.size >= this.personList.size) {
+//            this.personList.addAll(this.personList.size, personList.subList(this.personList.size, personList.size).toMutableList())
+//            notifyItemRangeInserted(this.personList.size , personList.size)
 //        }
     }
 

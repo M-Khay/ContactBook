@@ -1,7 +1,9 @@
 package com.ectosense.contactsbook.ui
 
 import android.os.Bundle
-import android.view.View
+import android.util.Log
+import android.view.MenuItem
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import com.ectosense.contactsbook.R
@@ -29,6 +31,17 @@ class MainActivity : AppCompatActivity(), ContactListFragment.ChangeFragmentList
                 .commit()
         }
         contactViewModel.selectedContact.observe(this, selectedContactObserver)
+
+    }
+
+
+    private val selectedContactObserver = Observer<Person> {
+//        it?.let {
+//            supportFragmentManager.beginTransaction()
+//                .replace(R.id.container, ContactDetailsFragment())
+//                .addToBackStack(null)
+//                .commit()
+//        }
     }
 
     override fun changeFragment() {
@@ -36,15 +49,6 @@ class MainActivity : AppCompatActivity(), ContactListFragment.ChangeFragmentList
             .replace(R.id.container, AddOrEditContactFragment())
             .addToBackStack(null)
             .commit()
-    }
-
-    private val selectedContactObserver = Observer<Person> {
-        it?.let {
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.container, ContactDetailsFragment())
-                .addToBackStack(null)
-                .commit()
-        }
     }
 
     override fun showActionBarWithIcon(title: String?, showBackButton: Boolean) {
@@ -55,4 +59,6 @@ class MainActivity : AppCompatActivity(), ContactListFragment.ChangeFragmentList
             toolbar.setNavigationIcon(R.drawable.ic_toolbar_app_icon)
         }
     }
+
+
 }

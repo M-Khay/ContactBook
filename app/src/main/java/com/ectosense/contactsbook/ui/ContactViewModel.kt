@@ -17,7 +17,7 @@ import kotlinx.coroutines.withContext
 class ContactViewModel(private val repository: ContactRepository) : ViewModel() {
     private val TAG = ContactViewModel::class.java.name
 
-    private val addNewContactState = MutableLiveData<Boolean>()
+    val addNewContactState = MutableLiveData<Boolean>()
 
     val _ContactsSyncState = MutableLiveData<ApiResult<List<Person>>>()
 
@@ -28,8 +28,9 @@ class ContactViewModel(private val repository: ContactRepository) : ViewModel() 
 
 
     fun syncContactList() {
-        _ContactsSyncState.value =
-            Loading(true)
+        if (contactList.value?.size == 0)
+            _ContactsSyncState.value =
+                Loading(true)
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 val result = repository.syncContacts()
@@ -47,20 +48,22 @@ class ContactViewModel(private val repository: ContactRepository) : ViewModel() 
         }
     }
 
-    fun addNewContact(person: Person) {
+    fun addOrEditContact(person: Person, isNewContact: Boolean): Person {
+        var updatedPerson = person
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                repository.addNewContact(person)
+                updatedPerson = repository.addOrEditContact(person,isNewContact)
                 withContext(Dispatchers.Main) {
                     addNewContactState.value = true
                 }
             } catch (exception: Exception) {
                 withContext(Dispatchers.Main) {
                     Log.d(TAG, "Error from API ${exception.localizedMessage}")
-                    addNewContactState.value = false
+                    addNewContactState.value = true
                 }
             }
         }
+        return updatedPerson
     }
 
     fun selectContact(person: Person) {
@@ -74,19 +77,6 @@ class ContactViewModel(private val repository: ContactRepository) : ViewModel() 
             } catch (exception: Exception) {
                 withContext(Dispatchers.Main) {
                     Log.d(TAG, "Error while updating Contact ${exception.localizedMessage}")
-                }
-            }
-        }
-    }
-
-
-    fun addContact(person: Person) {
-        viewModelScope.launch(Dispatchers.IO) {
-            try {
-                repository.addNewContact(person)
-            } catch (exception: java.lang.Exception) {
-                withContext(Dispatchers.Main) {
-                    Log.d(TAG, "Error While adding new contact ${exception.localizedMessage}")
                 }
             }
         }

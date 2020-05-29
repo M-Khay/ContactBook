@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -17,9 +18,10 @@ import com.ectosense.contactsbook.network.Error
 import com.ectosense.contactsbook.network.Loading
 import com.ectosense.contactsbook.network.Success
 import com.ectosense.contactsbook.ui.rv.ContactListAdapter
+import com.ectosense.contactsbook.ui.rv.RecyclerViewClickListener
 import kotlinx.android.synthetic.main.fragment_contact_list.*
 
-class ContactListFragment : Fragment() {
+class ContactListFragment : Fragment() ,RecyclerViewClickListener{
 
     interface ChangeFragmentListener {
         fun changeFragment()
@@ -54,6 +56,7 @@ class ContactListFragment : Fragment() {
         actionBarListener.showActionBarWithIcon("Contact's", false)
 
     }
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         contactViewModel = ViewModelProvider(requireActivity()).get(ContactViewModel::class.java)
@@ -61,7 +64,7 @@ class ContactListFragment : Fragment() {
         add_new_contact.setOnClickListener {
             changeFragmentListener.changeFragment()
         }
-        adapter = ContactListAdapter(contactViewModel)
+        adapter = ContactListAdapter(contactViewModel,this)
 
         contact_list.apply {
             layoutManager = LinearLayoutManager(activity)
@@ -94,10 +97,20 @@ class ContactListFragment : Fragment() {
         }
 
     }
-    private val dbContactListObeserver = Observer<List<Person>> { pupilList ->
+    private val dbContactListObeserver = Observer<List<Person>> { personList ->
         // update adapter.
-        adapter.updateContactsList(pupilList)
+        adapter.updateContactsList(personList)
     }
 
+    override fun onFavoriteClicked(position: Int, favorite: Boolean) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onRowClicked(position: Int) {
+        parentFragmentManager.beginTransaction()
+            .replace(R.id.container, ContactDetailsFragment())
+            .addToBackStack(null)
+            .commit()
+    }
 
 }

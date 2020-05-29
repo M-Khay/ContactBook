@@ -15,7 +15,6 @@ class ContactDetailsFragment : Fragment() {
     private lateinit var actionBarListener: ActionBarCallBack
     private lateinit var contactViewModel: ContactViewModel
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

@@ -18,9 +18,9 @@ class ContactRepositoryImpl(val database: AppDatabase, val contactApi: ContactAp
     }
 
     override suspend fun addOrEditContact(person: Person, isNewContact: Boolean): Person {
+        database.contactDao.insertNewContact(person)
         if (isNewContact)
             contactApi.addNewContact("application/json", person)
-        database.contactDao.insertNewContact(person)
         return person
     }
 
