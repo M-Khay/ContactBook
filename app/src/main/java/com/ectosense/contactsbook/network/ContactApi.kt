@@ -17,6 +17,6 @@ interface ContactApi {
     suspend fun addNewContact(
         @Header("Content-Type") contentType: String,
         @Body person: Person
-    )
+    ): String
 
 }

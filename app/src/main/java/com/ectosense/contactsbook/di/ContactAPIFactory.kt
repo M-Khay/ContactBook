@@ -5,12 +5,11 @@ import androidx.room.Room
 import com.ectosense.contactsbook.db.AppDatabase
 import com.ectosense.contactsbook.network.ContactApi
 import com.ectosense.contactsbook.utils.Constant.BASE_URL
-import okhttp3.Interceptor
+import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import java.util.concurrent.TimeUnit
 
 
 object ContactAPIFactory {
@@ -23,18 +22,21 @@ object ContactAPIFactory {
         }
         builder.addInterceptor(logging)
 
+        val gson = GsonBuilder()
+            .setLenient()
+            .create()
         return Retrofit.Builder()
-                .baseUrl(BASE_URL)
-                .client(builder.build())
-                .addConverterFactory(GsonConverterFactory.create())
-                .build().create(ContactApi::class.java)
+            .baseUrl(BASE_URL)
+            .client(builder.build())
+            .addConverterFactory(GsonConverterFactory.create(gson))
+            .build().create(ContactApi::class.java)
     }
 }
 
 object DatabaseFactory {
 
     fun getDBInstance(context: Context) =
-            Room.databaseBuilder(context, AppDatabase::class.java, "ContactsDB")
-                    .fallbackToDestructiveMigration()
-                    .build()
+        Room.databaseBuilder(context, AppDatabase::class.java, "ContactsDB")
+            .fallbackToDestructiveMigration()
+            .build()
 }
