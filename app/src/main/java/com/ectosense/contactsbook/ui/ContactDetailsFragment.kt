@@ -2,19 +2,19 @@ package com.ectosense.contactsbook.ui
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.ectosense.contactsbook.R
 import com.ectosense.contactsbook.databinding.FragmentContactDetailsBinding
-import com.ectosense.contactsbook.db.Person
 
 class ContactDetailsFragment : Fragment() {
 
     private lateinit var actionBarListener: ActionBarCallBack
     private lateinit var contactViewModel: ContactViewModel
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,13 +42,35 @@ class ContactDetailsFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         actionBarListener.showActionBarWithIcon("Contact's", true)
-
     }
+
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         menu.clear()
         inflater.inflate(R.menu.contact_details_menu, menu)
         super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.edit -> {
+                parentFragmentManager.beginTransaction()
+                    .replace(
+                        R.id.container,
+                        AddOrEditContactFragment.newInstance(false)
+                    )
+                    .addToBackStack(null)
+                    .commit()
+                return true
+            }
+            else -> {
+                Log.d(
+                    "Main Activity",
+                    "No Action taken, please check implementation details of the button."
+                )
+                return true
+            }
+        }
     }
 
 

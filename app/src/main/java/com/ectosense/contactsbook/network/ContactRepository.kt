@@ -9,6 +9,6 @@ interface ContactRepository {
     fun getSavedContactList(): LiveData<List<Person>>
 
     suspend fun updateContact(person: Person)
-    suspend fun addNewContact(person: Person): Person?
+    suspend fun addOrEditContact(person: Person, isNewContact : Boolean): Person
     suspend fun deleteContact(person: Person)
 }
