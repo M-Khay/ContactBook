@@ -71,8 +71,9 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/drawable_line_under_tv"
                 android:paddingLeft="24dp"
+                android:hint="First Name"
                 android:paddingBottom="20dp"
-                android:hint="(415)-301-9886"
+                android:singleLine="true"
                 android:textSize="22dp" />
 
         </LinearLayout>
@@ -133,11 +134,11 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/drawable_line_under_tv"
                 android:ellipsize="end"
-                android:hint="Phone"
+                android:inputType="number"
+                android:hint="(415)-301-9886"
                 android:paddingLeft="24dp"
                 android:paddingBottom="20dp"
                 android:singleLine="true"
-
                 android:textSize="22dp" />
 
         </LinearLayout>
@@ -166,7 +167,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/drawable_line_under_tv"
                 android:ellipsize="end"
-                android:hint="Email Address"
+                android:hint="email@address.com"
                 android:paddingLeft="24dp"
                 android:paddingBottom="20dp"
                 android:singleLine="true"

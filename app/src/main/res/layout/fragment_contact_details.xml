@@ -1,171 +1,180 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:weightSum="5"
-    app:layout_constraintHorizontal_chainStyle="spread"
-    tools:context=".ui.ContactDetailsFragment">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="2.5"
-        android:background="@drawable/gradient_bg">
+    <data>
 
-
-        <ImageView
-            android:id="@+id/poster"
-            android:layout_width="144dp"
-            android:layout_height="144dp"
-            android:layout_alignParentEnd="true"
-            android:layout_marginTop="8dp"
-            android:src="@mipmap/ic_image_placeholder_round_foreground"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"></ImageView>
-
-
-        <TextView
-            android:id="@+id/name"
-            style="@style/TextViewStyle.Heading"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="I M Khay"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/poster" />
-
-        <Button
-            android:id="@+id/message"
-            android:layout_width="80dp"
-            android:layout_height="110dp"
-            android:layout_marginTop="16dp"
-            android:background="@android:color/transparent"
-            android:drawableTop="@drawable/ic_message_button"
-            android:text="Message"
-            app:icon="@mipmap/ic_favorite_true"
-            app:layout_constraintEnd_toStartOf="@+id/call"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/name" />
-
-        <Button
-            android:id="@+id/call"
-            android:layout_width="80dp"
-            android:layout_height="110dp"
-            android:layout_marginTop="16dp"
-            android:background="@android:color/transparent"
-            android:drawableTop="@drawable/ic_call_button"
-
-            android:text="Call"
-            app:icon="@mipmap/ic_favorite_true"
-            app:layout_constraintEnd_toStartOf="@+id/email"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/message"
-            app:layout_constraintTop_toBottomOf="@id/name" />
-
-        <Button
-            android:id="@+id/email"
-            android:layout_width="80dp"
-            android:layout_height="110dp"
-            android:layout_marginTop="16dp"
-            android:background="@android:color/transparent"
-            android:drawableTop="@drawable/ic_email_button"
-            android:text="Email"
-            app:icon="@mipmap/ic_favorite_true"
-            app:layout_constraintEnd_toStartOf="@+id/favorite"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/call"
-            app:layout_constraintTop_toBottomOf="@id/name" />
-
-        <Button
-            android:id="@+id/favorite"
-            android:layout_width="80dp"
-            android:layout_height="110dp"
-            android:layout_marginTop="16dp"
-            android:background="@android:color/transparent"
-            android:drawableTop="@drawable/ic_home_favourite"
-            android:text="Favorite"
-            app:icon="@mipmap/ic_favorite_false"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/email"
-            app:layout_constraintTop_toBottomOf="@id/name" />
-
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        <variable
+            name="personDetails"
+            type="com.ectosense.contactsbook.db.Person" />
+    </data>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="2.5"
-        android:orientation="vertical">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:weightSum="5"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        tools:context=".ui.ContactDetailsFragment">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2.5"
+            android:background="@drawable/gradient_bg">
+
+
+            <ImageView
+                android:id="@+id/poster"
+                android:layout_width="144dp"
+                android:layout_height="144dp"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="8dp"
+                android:src="@mipmap/ic_image_placeholder_round_foreground"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"></ImageView>
+
+
+            <TextView
+                android:id="@+id/name"
+                style="@style/TextViewStyle.Heading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@{personDetails.firstName +` `+ personDetails.lastName}"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/poster" />
+
+            <Button
+                android:id="@+id/message"
+                android:layout_width="80dp"
+                android:layout_height="110dp"
+                android:layout_marginTop="16dp"
+                android:background="@android:color/transparent"
+                android:drawableTop="@drawable/ic_message_button"
+                android:text="Message"
+                app:icon="@mipmap/ic_favorite_true"
+                app:layout_constraintEnd_toStartOf="@+id/call"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/name" />
+
+            <Button
+                android:id="@+id/call"
+                android:layout_width="80dp"
+                android:layout_height="110dp"
+                android:layout_marginTop="16dp"
+                android:background="@android:color/transparent"
+                android:drawableTop="@drawable/ic_call_button"
+
+                android:text="Call"
+                app:icon="@mipmap/ic_favorite_true"
+                app:layout_constraintEnd_toStartOf="@+id/email"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/message"
+                app:layout_constraintTop_toBottomOf="@id/name" />
+
+            <Button
+                android:id="@+id/email"
+                android:layout_width="80dp"
+                android:layout_height="110dp"
+                android:layout_marginTop="16dp"
+                android:background="@android:color/transparent"
+                android:drawableTop="@drawable/ic_email_button"
+                android:text="Email"
+                app:icon="@mipmap/ic_favorite_true"
+                app:layout_constraintEnd_toStartOf="@+id/favorite"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/call"
+                app:layout_constraintTop_toBottomOf="@id/name" />
+
+            <Button
+                android:id="@+id/favorite"
+                android:layout_width="80dp"
+                android:layout_height="110dp"
+                android:layout_marginTop="16dp"
+                android:background="@android:color/transparent"
+                android:drawableTop="@{personDetails.favorite?@drawable/ic_home_favourite:@drawable/not_favourite_button}"
+                android:text="Favorite"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/email"
+                app:layout_constraintTop_toBottomOf="@id/name" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:orientation="horizontal">
+            android:layout_height="0dp"
+            android:layout_weight="2.5"
+            android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/phone_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:background="@drawable/drawable_line_under_tv"
-                android:paddingBottom="20dp"
-                android:text="Phone "
-                android:textSize="22dp" />
-
-
-            <TextView
-                style="@style/TextAppearance.MaterialComponents.Body1"
-                android:id="@+id/phone_number_tv"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:paddingLeft="24dp"
                 android:layout_height="wrap_content"
-                android:background="@drawable/drawable_line_under_tv"
-                android:paddingBottom="20dp"
-                android:text="(415)-301-9886"
-                android:textSize="22dp" />
+                android:layout_marginTop="24dp"
+                android:orientation="horizontal">
 
+                <TextView
+                    android:id="@+id/phone_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:background="@drawable/drawable_line_under_tv"
+                    android:paddingBottom="20dp"
+                    android:text="Phone "
+                    android:textSize="22dp" />
+
+
+                <TextView
+                    android:id="@+id/phone_number_tv"
+                    style="@style/TextAppearance.MaterialComponents.Body1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/drawable_line_under_tv"
+                    android:paddingLeft="24dp"
+                    android:paddingBottom="20dp"
+                    android:text="@{personDetails.phone}"
+                    android:textSize="22dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/email_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:background="@drawable/drawable_line_under_tv"
+                    android:paddingBottom="20dp"
+                    android:text="Email   "
+                    android:textSize="22dp" />
+
+
+                <TextView
+                    android:id="@+id/email_id_tv"
+                    style="@style/TextAppearance.MaterialComponents.Body1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/drawable_line_under_tv"
+                    android:ellipsize="end"
+                    android:paddingLeft="24dp"
+                    android:paddingBottom="20dp"
+                    android:singleLine="true"
+                    android:text="@{personDetails.email}"
+                    android:textSize="22dp" />
+
+            </LinearLayout>
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/email_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:background="@drawable/drawable_line_under_tv"
-                android:paddingBottom="20dp"
-                android:text="Email   "
-                android:textSize="22dp" />
-
-
-            <TextView
-                style="@style/TextAppearance.MaterialComponents.Body1"
-                android:id="@+id/email_id_tv"
-                android:layout_width="match_parent"
-                android:paddingLeft="24dp"
-                android:singleLine="true"
-                android:ellipsize="end"
-                android:layout_height="wrap_content"
-                android:background="@drawable/drawable_line_under_tv"
-                android:paddingBottom="20dp"
-                android:text="ahuja.kush.work@gmail.com"
-                android:textSize="22dp" />
-
-        </LinearLayout>
     </LinearLayout>
-
-</LinearLayout>
+</layout>

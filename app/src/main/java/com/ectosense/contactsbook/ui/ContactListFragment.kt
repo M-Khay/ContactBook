@@ -26,8 +26,8 @@ class ContactListFragment : Fragment() {
     }
 
     private lateinit var actionBarListener: ActionBarCallBack
-
     private lateinit var changeFragmentListener: ChangeFragmentListener
+
     private lateinit var contactViewModel: ContactViewModel
     private lateinit var adapter: ContactListAdapter
 
