@@ -15,7 +15,7 @@ data class Person(
 
     @ColumnInfo(name = "first_name")
     @SerializedName("firstname")
-    val firstName: String,
+    var firstName: String,
 
     @ColumnInfo(name = "last_name")
     @SerializedName("lastname")

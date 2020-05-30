@@ -9,6 +9,10 @@ class ContactRepositoryImpl(val database: AppDatabase, val contactApi: ContactAp
     ContactRepository {
     override suspend fun syncContacts(): ArrayList<Person> {
         val apiResponse = contactApi.syncContacts()
+        for (i in 0 until apiResponse.size) {
+            apiResponse[i].firstName= apiResponse[i].firstName.capitalize()
+        }
+
         database.contactDao.insertContactList(apiResponse)
         return apiResponse
     }
