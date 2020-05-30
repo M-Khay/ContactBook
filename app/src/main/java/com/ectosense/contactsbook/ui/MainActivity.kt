@@ -30,18 +30,20 @@ class MainActivity : AppCompatActivity(), ContactListFragment.ChangeFragmentList
                 .add(R.id.container, ContactListFragment())
                 .commit()
         }
-        contactViewModel.selectedContact.observe(this, selectedContactObserver)
-
+        contactViewModel.addNewContactState.observe(this, addNewContactObserver)
     }
 
 
-    private val selectedContactObserver = Observer<Person> {
-//        it?.let {
-//            supportFragmentManager.beginTransaction()
-//                .replace(R.id.container, ContactDetailsFragment())
-//                .addToBackStack(null)
-//                .commit()
-//        }
+    private val addNewContactObserver = Observer<Boolean> {
+        if (it) {
+            onBackPressed()
+        } else {
+            Toast.makeText(
+                this,
+                "Sorry!! Something went wrong, please try again",
+                Toast.LENGTH_LONG
+            ).show()
+        }
     }
 
     override fun changeFragment() {
