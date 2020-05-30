@@ -42,7 +42,7 @@ UI  :: https://material.io/
 
 ![Add New Contact Empty](/images/addnewcontactempty.jpeg)
 
-![Contact Details ](/images/addnewpupilerror.jpeg)
+![Contact Details ](/images/contactdetails.jpeg)
 
 ![Edit Contact ](/images/editcontact.jpeg)
 
