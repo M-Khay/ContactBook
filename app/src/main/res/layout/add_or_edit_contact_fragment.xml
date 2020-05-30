@@ -77,11 +77,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/drawable_line_under_tv"
-                android:hint="First Name"
-                android:paddingLeft="24dp"
+                android:hint="@string/first_name"
+                android:paddingStart="24dp"
+                android:inputType="textCapWords"
                 android:paddingBottom="20dp"
                 android:singleLine="true"
-                android:textSize="22dp" />
+                android:textSize="22sp" />
 
         </LinearLayout>
 
@@ -95,7 +96,7 @@
                 android:id="@+id/lastname_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
+                android:layout_marginStart="20dp"
                 android:background="@drawable/drawable_line_under_tv"
                 android:paddingBottom="20dp"
                 android:text="Last Name  "
@@ -109,7 +110,8 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/drawable_line_under_tv"
                 android:ellipsize="end"
-                android:hint="Last Name"
+                android:hint="@string/last_name"
+                android:inputType="textCapWords"
                 android:paddingLeft="24dp"
                 android:paddingBottom="20dp"
                 android:singleLine="true"
@@ -141,7 +143,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/drawable_line_under_tv"
                 android:ellipsize="end"
-                android:hint="(415)-301-9886"
+                android:hint="@string/phone"
                 android:inputType="number"
                 android:paddingLeft="24dp"
                 android:paddingBottom="20dp"
@@ -174,7 +176,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/drawable_line_under_tv"
                 android:ellipsize="end"
-                android:hint="email@address.com"
+                android:hint="@string/email"
                 android:paddingLeft="24dp"
                 android:paddingBottom="20dp"
                 android:singleLine="true"

@@ -58,6 +58,8 @@ class ContactViewModel(private val repository: ContactRepository) : ViewModel() 
                 }
             } catch (exception: Exception) {
                 withContext(Dispatchers.Main) {
+
+                    // For Now we are not handling errors from server side.
                     Log.d(TAG, "Error from API ${exception.localizedMessage}")
                     addNewContactState.value = true
                 }

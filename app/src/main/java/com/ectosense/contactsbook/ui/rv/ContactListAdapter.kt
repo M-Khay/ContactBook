@@ -61,7 +61,7 @@ class ContactListAdapter(var contactViewModel: ContactViewModel, private var rec
         val size: Int = personList.size
         while (i < size) {
             val section: String =
-                java.lang.String.valueOf(personList[i].firstName.toCharArray().get(0)).toUpperCase()
+                java.lang.String.valueOf(personList[i].firstName.toUpperCase().toCharArray().get(0)).toUpperCase()
             if (!sections.contains(section)) {
                 sections.add(section)
                 mSectionPositions.add(i)

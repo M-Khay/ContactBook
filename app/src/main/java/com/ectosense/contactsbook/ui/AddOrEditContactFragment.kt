@@ -71,6 +71,7 @@ class AddOrEditContactFragment : Fragment() {
                 view.phone_number_et.setText(it.phone)
                 view.email_id_et.setText(it.email)
                 it.photo?.let { imageUri ->
+                    this.imageUri = imageUri
                     showSelectedImage(Uri.parse(imageUri),view.poster)
                 }
             }
@@ -131,15 +132,15 @@ class AddOrEditContactFragment : Fragment() {
         if (firstName.isEmpty() && lastName.isEmpty()) {
             Toast.makeText(
                 activity,
-                "Please enter first or last name before saving your contact.",
+                resources.getString(R.string.error_first_last_name),
                 Toast.LENGTH_LONG
             ).show()
             return false
         }
-        if (phone.isEmpty() && email.isEmpty()) {
+        if (phone.isEmpty() || email.isEmpty()) {
             Toast.makeText(
                 activity,
-                "Please enter phone or email address before saving your contact.",
+                resources.getString(R.string.error_phone_email),
                 Toast.LENGTH_LONG
             ).show()
             return false
@@ -179,23 +180,18 @@ class AddOrEditContactFragment : Fragment() {
     private fun askForPermission(permission: String, requestCode: Int) {
         if (ContextCompat.checkSelfPermission(
                 requireActivity(), permission
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
-
+            ) != PackageManager.PERMISSION_GRANTED) {
             // Should we show an explanation?
             if (ActivityCompat.shouldShowRequestPermissionRationale(
                     requireActivity(),
-                    permission
-                )
-            ) {
+                    permission)) {
                 //This is called if user has denied the permission before
                 //In this case I am just asking the permission again
                 ActivityCompat.requestPermissions(
                     requireActivity(),
                     arrayOf(permission),
-                    requestCode
-                )
-            } else {
+                    requestCode) }
+            else {
                 ActivityCompat.requestPermissions(
                     requireActivity(),
                     arrayOf(permission),
@@ -208,16 +204,12 @@ class AddOrEditContactFragment : Fragment() {
     }
 
     override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
+        requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (ActivityCompat.checkSelfPermission(
                 requireActivity(),
                 permissions[0]
-            ) == PackageManager.PERMISSION_GRANTED
-        ) {
+            ) == PackageManager.PERMISSION_GRANTED) {
             when (requestCode) {
                 READ_EXST -> {
                     dispatchGalleryIntent()

@@ -52,7 +52,7 @@ class ContactDetailsFragment : Fragment(), View.OnClickListener {
 
     override fun onResume() {
         super.onResume()
-        actionBarListener.showActionBarWithIcon("Contact's", true)
+        actionBarListener.showActionBarWithIcon(resources.getString(R.string.app_name_heading), true)
     }
 
 

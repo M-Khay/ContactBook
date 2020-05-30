@@ -40,7 +40,7 @@ class MainActivity : AppCompatActivity(), ContactListFragment.ChangeFragmentList
         } else {
             Toast.makeText(
                 this,
-                "Sorry!! Something went wrong, please try again",
+                R.string.something_went_wrong,
                 Toast.LENGTH_LONG
             ).show()
         }

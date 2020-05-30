@@ -53,7 +53,7 @@ class ContactListFragment : Fragment() ,RecyclerViewClickListener{
 
     override fun onResume() {
         super.onResume()
-        actionBarListener.showActionBarWithIcon("Contact's", false)
+        actionBarListener.showActionBarWithIcon(resources.getString(R.string.app_name_heading), false)
 
     }
 
@@ -100,10 +100,6 @@ class ContactListFragment : Fragment() ,RecyclerViewClickListener{
     private val dbContactListObeserver = Observer<List<Person>> { personList ->
         // update adapter.
         adapter.updateContactsList(personList)
-    }
-
-    override fun onFavoriteClicked(position: Int, favorite: Boolean) {
-        TODO("Not yet implemented")
     }
 
     override fun onRowClicked(position: Int) {
