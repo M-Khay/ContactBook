@@ -72,7 +72,7 @@ class AddOrEditContactFragment : Fragment() {
                 view.email_id_et.setText(it.email)
                 it.photo?.let { imageUri ->
                     this.imageUri = imageUri
-                    showSelectedImage(Uri.parse(imageUri),view.poster)
+                    showSelectedImage(Uri.parse(imageUri), view.poster)
                 }
             }
         }
@@ -96,24 +96,27 @@ class AddOrEditContactFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.d -> {
-                val firstName = first_name_et.text.toString()
+                var firstName = first_name_et.text.toString()
                 val lastName = lastname_et.text.toString()
                 val phone = phone_number_et.text.toString()
                 val email = email_id_et.text.toString()
 
-                if (validateData(firstName, lastName, phone, email)) {
-                    saving_content.visibility = View.VISIBLE
-                    val result = contactViewModel.addOrEditContact(
-                        person = Person(
-                            firstName,
-                            lastName,
-                            email,
-                            phone,
-                            false,
-                            imageUri
-                        ), isNewContact = isNewContact
-                    )
-                    contactViewModel.selectedContact.value = result
+                if (validateAllRequiredFeildNotEmpty(firstName, lastName, phone, email)) {
+                    if (validateEmail(email) && validatePhoneNumber(phone)) {
+                        firstName = firstName.trim()
+                        saving_content.visibility = View.VISIBLE
+                        val result = contactViewModel.addOrEditContact(
+                            person = Person(
+                                firstName,
+                                lastName,
+                                email,
+                                phone,
+                                false,
+                                imageUri
+                            ), isNewContact = isNewContact
+                        )
+                        contactViewModel.selectedContact.value = result
+                    }
                 }
                 return true
             }
@@ -123,7 +126,7 @@ class AddOrEditContactFragment : Fragment() {
 
     }
 
-    private fun validateData(
+    private fun validateAllRequiredFeildNotEmpty(
         firstName: String,
         lastName: String,
         phone: String,
@@ -161,7 +164,7 @@ class AddOrEditContactFragment : Fragment() {
         if (resultCode == RESULT_OK) {
             if (requestCode == REQUEST_GALLERY_PHOTO) {
                 imageUri = data?.data.toString()
-                showSelectedImage(Uri.parse(imageUri),poster)
+                showSelectedImage(Uri.parse(imageUri), poster)
             }
         }
     }
@@ -180,18 +183,22 @@ class AddOrEditContactFragment : Fragment() {
     private fun askForPermission(permission: String, requestCode: Int) {
         if (ContextCompat.checkSelfPermission(
                 requireActivity(), permission
-            ) != PackageManager.PERMISSION_GRANTED) {
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
             // Should we show an explanation?
             if (ActivityCompat.shouldShowRequestPermissionRationale(
                     requireActivity(),
-                    permission)) {
+                    permission
+                )
+            ) {
                 //This is called if user has denied the permission before
                 //In this case I am just asking the permission again
                 ActivityCompat.requestPermissions(
                     requireActivity(),
                     arrayOf(permission),
-                    requestCode) }
-            else {
+                    requestCode
+                )
+            } else {
                 ActivityCompat.requestPermissions(
                     requireActivity(),
                     arrayOf(permission),
@@ -204,12 +211,14 @@ class AddOrEditContactFragment : Fragment() {
     }
 
     override fun onRequestPermissionsResult(
-        requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        requestCode: Int, permissions: Array<out String>, grantResults: IntArray
+    ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (ActivityCompat.checkSelfPermission(
                 requireActivity(),
                 permissions[0]
-            ) == PackageManager.PERMISSION_GRANTED) {
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
             when (requestCode) {
                 READ_EXST -> {
                     dispatchGalleryIntent()
@@ -217,5 +226,21 @@ class AddOrEditContactFragment : Fragment() {
             }
         }
     }
+
+    private fun validatePhoneNumber(number: String): Boolean {
+        if (number.length != 10) {
+            Toast.makeText(activity, "Please Enter a valid phone number", Toast.LENGTH_LONG).show()
+        }
+        return number.length == 10
+    }
+
+    private fun validateEmail(email: String): Boolean {
+        if (!email.contains("@") || !email.contains(".")) {
+            Toast.makeText(activity, "Please Enter a valid phone number", Toast.LENGTH_LONG).show()
+            return false
+        }
+        return true
+    }
+
 
 }
