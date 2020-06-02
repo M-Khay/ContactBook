@@ -5,12 +5,13 @@ import com.ectosense.contactsbook.db.AppDatabase
 import com.ectosense.contactsbook.db.Person
 
 
-class ContactRepositoryImpl(val database: AppDatabase, val contactApi: ContactApi) :
+class ContactRepositoryImpl(private val database: AppDatabase, private val contactApi: ContactApi) :
     ContactRepository {
+
     override suspend fun syncContacts(): ArrayList<Person> {
         val apiResponse = contactApi.syncContacts()
         for (i in 0 until apiResponse.size) {
-            apiResponse[i].firstName= apiResponse[i].firstName.capitalize()
+            apiResponse[i].firstName = apiResponse[i].firstName.trim().capitalize()
         }
 
         database.contactDao.insertContactList(apiResponse)
