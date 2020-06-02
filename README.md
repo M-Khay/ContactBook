@@ -50,7 +50,8 @@ UI  :: https://material.io/
 # Future Goals : 
 While this is just the MVP of the actual prodcut, given more time there are few advances which this app would need to give its users a flawless and memorable experience. 
 
-1. Pull to Refresh -> The pupil list needs pull to refresh listview. This is specially important when the user was offline while he was using the app( he was being displayed the cached data from DB) but if he suddeenly comes online, currently user have to kill the app and reload the app to load new data from server. But with pull to refresh the user can be saved lots of trouble. 
+1. Pull to Refresh and imporvement on how user contact is being store, ie better validation of email, phone, and name ( trimming white spaces, capitalizing first word automatically etc...) -> Done for the next release. 
+
 
 2. offline data sync : We can provide a sync button that syncs all newly added contacts (which user added while being offlie) with server when he is next online.
 
